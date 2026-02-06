@@ -11,15 +11,16 @@
   <div class="container">
     <h1>Home</h1>
     <p>Welcome to your home page. Use the Actions link to manage tasks, skills, reminders, blogs and rewards.</p>
-    <nav>
-      <a href="action/task.html">Actions</a> |
-      <a href="profile.html">Profile</a> |
-      <a href="login.html" id="logout">Logout</a>
-    </nav>
+<nav>
+  <a href="/action/task.html">Actions</a> |
+  <a href="/profile.html">Profile</a> |
+  <a href="/index.html" id="logout">Logout</a>
+</nav>
+
   </div>
   <script>
     const user = JSON.parse(localStorage.getItem('user')||'null');
-    if (!user) location.href = 'login.html';
+    if (!user) location.href = 'index.html';
     document.getElementById('logout').addEventListener('click', ()=>{ localStorage.removeItem('user'); });
   </script>
 </body>
