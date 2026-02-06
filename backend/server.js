@@ -4,6 +4,10 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'..','frontend')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+});
+
 const DATA_DIR = path.join(__dirname,'data');
 
 function readJSON(name){ try{ const p = path.join(DATA_DIR,name+'.json'); if(!fs.existsSync(p)) return []; return JSON.parse(fs.readFileSync(p)); } catch(e){ return []; } }
