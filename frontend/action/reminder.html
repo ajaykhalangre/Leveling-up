@@ -11,8 +11,15 @@
     <h1>Reminders</h1>
     <form id="remForm"><input id="text" placeholder="Reminder text" required/><input id="rdate" type="date"/><button>Add</button></form>
     <ul id="rlist"></ul>
-    <nav><a href="task.html">Tasks</a> | <a href="skills.html">Skills</a> | <a href="blog.html">Blog</a> | <a href="reward.html">Reward</a> | <a href="../../profile.html">Profile</a></nav>
-  </div>
+    <nav>
+  <a href="task.html">Tasks</a> |
+  <a href="skills.html">Skills</a> |
+  <a href="reminder.html">Reminders</a> |
+  <a href="blog.html">Blog</a> |
+  <a href="reward.html">Reward</a> |
+  <a href="../profile.html">Profile</a>
+</nav>
+
   <script>
     const api='/api/reminders';
     async function load(){ const r=await fetch(api); const j=await r.json(); const ul=document.getElementById('rlist'); ul.innerHTML=''; j.forEach(it=>{ const li=document.createElement('li'); li.textContent=it.text + (it.date? ' ('+it.date+')':''); ul.appendChild(li); }); }
