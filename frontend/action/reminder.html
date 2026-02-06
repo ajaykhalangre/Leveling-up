@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Reminders - Project</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Reminders</h1>
+    <form id="remForm"><input id="text" placeholder="Reminder text" required/><input id="rdate" type="date"/><button>Add</button></form>
+    <ul id="rlist"></ul>
+    <nav><a href="task.html">Tasks</a> | <a href="skills.html">Skills</a> | <a href="blog.html">Blog</a> | <a href="reward.html">Reward</a> | <a href="../../profile.html">Profile</a></nav>
+  </div>
+  <script>
+    const api='/api/reminders';
+    async function load(){ const r=await fetch(api); const j=await r.json(); const ul=document.getElementById('rlist'); ul.innerHTML=''; j.forEach(it=>{ const li=document.createElement('li'); li.textContent=it.text + (it.date? ' ('+it.date+')':''); ul.appendChild(li); }); }
+    document.getElementById('remForm').addEventListener('submit', async e=>{ e.preventDefault(); const text=document.getElementById('text').value; const date=document.getElementById('rdate').value; await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,date})}); document.getElementById('text').value=''; document.getElementById('rdate').value=''; load(); });
+    load();
+  </script>
+</body>
+</html>

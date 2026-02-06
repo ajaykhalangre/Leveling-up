@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Rewards - Project</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Rewards</h1>
+    <form id="rwForm"><input id="name" placeholder="Reward name"/><button>Add</button></form>
+    <ul id="rws"></ul>
+    <nav><a href="task.html">Tasks</a> | <a href="skills.html">Skills</a> | <a href="reminder.html">Reminders</a> | <a href="blog.html">Blog</a> | <a href="../../profile.html">Profile</a></nav>
+  </div>
+  <script>
+    const api='/api/rewards';
+    async function load(){ const r=await fetch(api); const j=await r.json(); const ul=document.getElementById('rws'); ul.innerHTML=''; j.forEach(s=>{ const li=document.createElement('li'); li.textContent=s.name; ul.appendChild(li); }); }
+    document.getElementById('rwForm').addEventListener('submit', async e=>{ e.preventDefault(); const name=document.getElementById('name').value; await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})}); document.getElementById('name').value=''; load(); });
+    load();
+  </script>
+</body>
+</html>

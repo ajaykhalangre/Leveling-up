@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Profile - Project</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Profile</h1>
+    <div id="profileInfo"></div>
+    <nav>
+      <a href="home.html">Go to Home</a> |
+      <a href="action/task.html">Actions</a> |
+      <a href="login.html" id="logout">Logout</a>
+    </nav>
+  </div>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    if (!user) location.href = 'login.html';
+    document.getElementById('profileInfo').innerHTML = '<p><strong>Name:</strong> ' + (user.name||user.email) + '</p><p><strong>Email:</strong> ' + user.email + '</p>';
+    document.getElementById('logout').addEventListener('click', ()=>{ localStorage.removeItem('user'); });
+  </script>
+</body>
+</html>

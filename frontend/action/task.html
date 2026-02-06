@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Tasks - Project</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Tasks</h1>
+    <form id="taskForm">
+      <input id="title" placeholder="Task title" required />
+      <input id="due" type="date" />
+      <button type="submit">Add Task</button>
+    </form>
+    <ul id="tasks"></ul>
+    <nav>
+      <a href="../skills.html">Skills</a> |
+      <a href="../reminder.html">Reminders</a> |
+      <a href="../blog.html">Blog</a> |
+      <a href="../reward.html">Reward</a> |
+      <a href="../../profile.html">Profile</a>
+    </nav>
+  </div>
+  <script>
+    const api = '/api/tasks';
+    async function load(){ 
+      const r = await fetch(api); const j = await r.json();
+      const ul = document.getElementById('tasks'); ul.innerHTML = '';
+      j.forEach(t=>{
+        const li = document.createElement('li');
+        li.textContent = t.title + (t.due? ' (due '+t.due+')':'');
+        ul.appendChild(li);
+      });
+    }
+    document.getElementById('taskForm').addEventListener('submit', async (e)=> {
+      e.preventDefault();
+      const title = document.getElementById('title').value, due = document.getElementById('due').value;
+      await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,due})});
+      document.getElementById('title').value=''; document.getElementById('due').value='';
+      load();
+    });
+    load();
+  </script>
+</body>
+</html>

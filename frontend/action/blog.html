@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Blog - Project</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Blog</h1>
+    <form id="blogForm"><input id="title" placeholder="Title" required/><textarea id="content" placeholder="Content"></textarea><button>Post</button></form>
+    <ul id="blogs"></ul>
+    <nav><a href="task.html">Tasks</a> | <a href="skills.html">Skills</a> | <a href="reminder.html">Reminders</a> | <a href="reward.html">Reward</a> | <a href="../../profile.html">Profile</a></nav>
+  </div>
+  <script>
+    const api='/api/blogs';
+    async function load(){ const r=await fetch(api); const j=await r.json(); const ul=document.getElementById('blogs'); ul.innerHTML=''; j.forEach(b=>{ const li=document.createElement('li'); li.innerHTML='<strong>'+b.title+'</strong><p>'+b.content+'</p>'; ul.appendChild(li); }); }
+    document.getElementById('blogForm').addEventListener('submit', async e=>{ e.preventDefault(); const title=document.getElementById('title').value; const content=document.getElementById('content').value; await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,content})}); document.getElementById('title').value=''; document.getElementById('content').value=''; load(); });
+    load();
+  </script>
+</body>
+</html>
